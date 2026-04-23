@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(methodOverride("_method"));
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
+
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
