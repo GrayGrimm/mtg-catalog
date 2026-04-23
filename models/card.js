@@ -12,8 +12,9 @@ const CardSchema = new mongoose.Schema({
   },
   setName: { type: String, required: true },
   oracleText: { type: String, required: false },
-  power: { type: String, required: true },
-  toughness: { type: String, required: true },
+  power: { type: String, required: false },
+  toughness: { type: String, required: false },
+  quantity: { type: Number, default: 1 },
 });
 
 const Card = mongoose.model("Card", CardSchema);
