@@ -39,14 +39,14 @@ const getAllDecks = async (req, res) => {
 
 const getOneDeck = async (req, res) => {
   try {
-    const foundDeck = await Deck.findOne({
+    const deck = await Deck.findOne({
       _id: req.params.deckId,
       user: req.user._id,
-    });
-    if (!foundDeck) {
+    }).populate("cards.card");
+    if (!deck) {
       return res.status(404).json({ err: "Deck not found" });
     }
-    res.status(200).json(foundDeck);
+    res.status(200).json(deck);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
@@ -179,11 +179,11 @@ const removeCardFromDeck = async (req, res) => {
     await deck.save();
 
     res.status(200).json(deck);
-
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
 };
+
 module.exports = {
   addDeck,
   getAllDecks,
@@ -192,5 +192,5 @@ module.exports = {
   deleteDeck,
   addCardToDeck,
   updateCardQuantityInDeck,
-  removeCardFromDeck
+  removeCardFromDeck,
 };
