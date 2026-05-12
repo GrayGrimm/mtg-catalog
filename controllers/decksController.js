@@ -115,6 +115,47 @@ const addCardToDeck = async (req, res) => {
     res.status(500).json({ err: err.message });
   }
 };
+
+const updateCardQuantityInDeck = async (req, res) => {
+  try {
+    const { cardId, quantity } = req.body;
+
+    if (quantity < 0) {
+      return res.status(400).json({ err: "Quantity cannot be negative" });
+    }
+
+    const card = await Card.findById(cardId);
+    if (!card) {
+      return res.status(404).json({ err: "Card not Found" });
+    }
+
+    const deck = await Deck.findOne({
+      _id: req.params.deckId,
+      user: req.user._id,
+    });
+    if (!deck) {
+      return res.status(404).json({ err: "Deck not found" });
+    }
+
+    const cardToUpdate = deck.cards.find((c) => c.card.toString() === cardId);
+    if (!cardToUpdate) {
+      return res.status(404).json({ err: "Card not in deck" });
+    }
+
+    if (quantity === 0) {
+      deck.cards = deck.cards.filter((c) => c.card.toString() !== cardId);
+    } else {
+      cardToUpdate.quantity = quantity;
+    }
+
+    await deck.save();
+
+    res.status(200).json(deck);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+};
+
 module.exports = {
   addDeck,
   getAllDecks,
@@ -122,4 +163,5 @@ module.exports = {
   updateDeck,
   deleteDeck,
   addCardToDeck,
+  updateCardQuantityInDeck,
 };
