@@ -6,7 +6,7 @@ const connectDB = require("./config/db.js");
 
 const logger = require("morgan");
 
-const authRouter = require("./controllers/auth");
+const authRouter = require("./controllers/auth.js");
 const usersRouter = require("./controllers/users.js");
 const cardsRouter = require("./controllers/cardsController.js");
 const setsRouter = require("./routers/setsRouters.js");
