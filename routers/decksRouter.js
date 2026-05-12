@@ -10,6 +10,7 @@ const {
   deleteDeck,
   addCardToDeck,
   updateCardQuantityInDeck,
+  removeCardFromDeck,
 } = require("../controllers/decksController.js");
 
 router.post("/", verifyToken, addDeck);
@@ -20,5 +21,6 @@ router.delete("/:deckId", verifyToken, deleteDeck);
 
 router.post("/:deckId/cards", verifyToken, addCardToDeck);
 router.put("/:deckId/cards", verifyToken, updateCardQuantityInDeck);
+router.delete("/:deckId/cards", verifyToken, removeCardFromDeck);
 
 module.exports = router;

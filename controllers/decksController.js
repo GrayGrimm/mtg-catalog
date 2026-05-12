@@ -156,6 +156,34 @@ const updateCardQuantityInDeck = async (req, res) => {
   }
 };
 
+const removeCardFromDeck = async (req, res) => {
+  try {
+    const { cardId } = req.body;
+
+    const deck = await Deck.findOne({
+      _id: req.params.deckId,
+      user: req.user._id,
+    });
+    if (!deck) {
+      return res.status(404).json({ err: "Deck not Found" });
+    }
+
+    const cardToRemove = deck.cards.some((c) => c.card.toString() === cardId);
+
+    if (!cardToRemove) {
+      return res.status(404).json({ err: "Card not in Deck" });
+    }
+
+    deck.cards = deck.cards.filter((c) => c.card.toString() !== cardId);
+
+    await deck.save();
+
+    res.status(200).json(deck);
+
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+};
 module.exports = {
   addDeck,
   getAllDecks,
@@ -164,4 +192,5 @@ module.exports = {
   deleteDeck,
   addCardToDeck,
   updateCardQuantityInDeck,
+  removeCardFromDeck
 };
