@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const SetSchema = new mongoose.Schema({
-  setName: { type: String, required: true },
-  setReleaseDate: { type: String },
-  setSymbolUrl: { type: String },
+  name: { type: String, required: true },
+  releaseDate: { type: String },
+  symbolUrl: { type: String },
 });
 
 const Set = mongoose.model("Set", SetSchema);

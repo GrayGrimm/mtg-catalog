@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const CardSchema = new mongoose.Schema({
-  cardName: { type: String, required: true },
+  name: { type: String, required: true },
   manaCost: { type: String, required: true },
   typeLine: { type: String, required: true },
   colors: { type: String, required: true },
