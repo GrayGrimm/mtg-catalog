@@ -10,7 +10,7 @@ const authRouter = require("./controllers/auth.js");
 const usersRouter = require("./controllers/users.js");
 const cardsRouter = require("./controllers/cardsController.js");
 const setsRouter = require("./routers/setsRouters.js");
-const collectionsRouter = require("./routers/controllersRouter.js");
+const collectionsRouter = require("./routers/collectionsRouter.js");
 const decksRouter = require("./routers/decksRouter.js");
 
 const PORT = process.env.PORT || 5000;

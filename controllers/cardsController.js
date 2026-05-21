@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", verifyToken, async (req, res) => {
   try {
     const existingCard = await Card.findOne({
-      cardName: req.body.cardName,
+      name: req.body.name,
       setName: req.body.setName,
     });
     if (existingCard) {
